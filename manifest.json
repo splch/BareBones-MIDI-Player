@@ -5,5 +5,5 @@
   "version": "0.4",
   "manifest_version": 2,
   "app": {"background": {"scripts": ["background.js"]}},
-  "icons": {"16": "icons/bbm-16.png", "128": "icons/bbm-128.png"}
+  "icons": {"128": "icons/bbm-128.png"}
 }

@@ -107,7 +107,7 @@ if (ENVIRONMENT_IS_NODE) {
   // Expose functionality in the same simple way that the shells work
   // Note that we pollute the global namespace here, otherwise we break in node
   if (!Module['print']) Module['print'] = console.log;
-  if (!Module['printErr']) Module['printErr'] = console.log;
+  if (!Module['printErr']) Module['printErr'] = console.warn;
 
   var nodeFS;
   var nodePath;
