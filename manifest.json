@@ -2,7 +2,7 @@
   "name": "BareBones MIDI Player",
   "short_name": "BareBones MIDI",
   "description": "It plays MIDI files.",
-  "version": "0.5",
+  "version": "0.6",
   "manifest_version": 2,
   "app": {"background": {"scripts": ["background.js"]}},
   "icons": {"128": "icons/bbm-128.png"}
