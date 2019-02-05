@@ -6,15 +6,17 @@
         <hr>
         <br>
         <nav>
-            <input type="file" accept=".mid" id="load"></input>
+            <button id="load">Choose Tune</button>
+            <input type="file" accept=".mid" id="filein" style="display: none;"></input>
         </nav>
+        <small id="filename"></small>
         <br>
         <nav>
             <button id="play">Play</button>
-            <button id="stop">Stop</button>
-            <small></small>
+            <button id="stop" disabled="true">Stop</button>
         </nav>
         <br>
         <img src="icons/bbm.png">
+        <small></small>
     </body>
 </html>
