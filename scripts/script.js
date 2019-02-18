@@ -8,7 +8,7 @@ function flip() {
         this.isFlipped = false;
     }
     else {
-        document.getElementsByTagName("img")[0].setAttribute("style", "transform: scaleX(-1)");
+        document.getElementsByTagName("img")[0].setAttribute("style", "transform: scaleX(-1);");
         this.isFlipped = true;
     }
 }
@@ -35,15 +35,15 @@ document.getElementById("filein").onchange = function() {
 document.getElementById("play").onclick = function() {
     if (midi) {
         MIDIjs.play(midi);
-        document.getElementById("play").setAttribute("disabled", true);
-        document.getElementById("stop").removeAttribute("disabled", true);
         isPlaying = true;
         setTimeout(trydance, 700);
+        document.getElementById("play").setAttribute("disabled", true);
+        document.getElementById("stop").removeAttribute("disabled");
     }
 };
 document.getElementById("stop").onclick = function() {
     MIDIjs.stop();
-    document.getElementById("stop").setAttribute("disabled", true);
-    document.getElementById("play").removeAttribute("disabled", true);
     isPlaying = false;
+    document.getElementById("stop").setAttribute("disabled", true);
+    document.getElementById("play").removeAttribute("disabled");
 };
