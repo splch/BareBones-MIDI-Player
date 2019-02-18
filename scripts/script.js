@@ -28,7 +28,7 @@ document.getElementById("filein").onchange = function() {
         reader.readAsDataURL(document.getElementById("filein").files[0]);
         reader.onload = function(e) {
             midi = reader.result;
-            document.getElementsByTagName("small")[0].innerHTML = document.getElementById("filein").files[0].name;
+            document.getElementsByTagName("small")[0].innerHTML = document.getElementById("filein").files[0].name.substring(0,35);
         };
     }
 };
