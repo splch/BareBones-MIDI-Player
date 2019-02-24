@@ -31,6 +31,7 @@ document.getElementById("filein").onchange = function() {
             document.getElementsByTagName("small")[0].innerHTML = document.getElementById("filein").files[0].name.substring(0,35);
         };
     }
+    document.getElementById("play").removeAttribute("disabled");
 };
 document.getElementById("play").onclick = function() {
     if (midi) {
