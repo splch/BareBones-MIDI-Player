@@ -11,8 +11,8 @@ function flip() {
     document.getElementsByTagName("img")[0].style.removeProperty("transform");
     this.isFlipped = false;
 }
-function display_time(ev) {
-    document.getElementsByTagName("progress")[0].value = ev.time.toFixed(0);
+function progress() {
+    document.getElementsByTagName("progress")[0].value++;
 }
 document.getElementById("load").onclick = function() {
     document.getElementById("filein").value = null;
@@ -27,21 +27,24 @@ document.getElementById("filein").onchange = function() {
         reader.onload = function(e) {
             midi = reader.result;
             document.getElementById("control").click();
-            document.getElementById("title").innerHTML = document.getElementById("filein").files[0].name.split('.mid')[0].substring(0,35);
+            document.getElementById("title").innerHTML = document.getElementById("filein").files[0].name.split('.mid')[0].substring(0,30);
         };
         document.getElementById("control").disabled = false;
     }
 };
 document.getElementById("control").onclick = function() {
+    document.getElementsByTagName("progress")[0].value = 0;
     if (!dancing) {
         MIDIjs.play(midi);
-        MIDIjs.player_callback = display_time;
+        document.getElementById("control").innerHTML = "&#9724;";
         dancing = setInterval(flip, 700);
-        document.getElementById("control").innerHTML = "&#10073;&#10073;";
+        document.getElementsByTagName("progress")[0].max = Math.round(document.getElementById("filein").files[0].size / 100);
+        prog = setInterval(progress, 1000);
         return;
     }
     MIDIjs.stop();
     clearInterval(dancing);
+    clearInterval(prog);
     dancing = null;
     document.getElementById("control").innerHTML = "&#9654;";
 };
