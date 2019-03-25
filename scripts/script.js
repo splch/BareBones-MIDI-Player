@@ -31,7 +31,7 @@ document.getElementById("filein").onchange = function() {
         document.getElementsByTagName("progress")[0].max = Math.round(document.getElementById("filein").files[0].size / 100);
         document.getElementById("control").click();
     };
-    document.getElementById("title").innerHTML = document.getElementById("filein").files[0].name.split(".mid")[0].substring(0, 35);
+    document.getElementById("title").innerText = document.getElementById("filein").files[0].name.split(".mid")[0];
     document.getElementById("control").disabled = false;
 };
 document.getElementById("control").onclick = function() {
