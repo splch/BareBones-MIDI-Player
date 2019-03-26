@@ -1,4 +1,4 @@
-var prog, dancing, midi;
+var prog, dancing, reader;
 function flip() {
     this.isFlipped;
     if (this.isFlipped === false) {
@@ -14,7 +14,7 @@ function progress() {
         document.getElementsByTagName("progress")[0].value++;
         return;
     }
-    MIDIjs.play(midi);
+    MIDIjs.play(reader.result);
     document.getElementById("control").click();
     document.getElementsByTagName("progress")[0].value = 0;
 }
@@ -28,13 +28,12 @@ document.getElementById("load").onclick = function() {
     document.getElementById("filein").click();
 };
 document.getElementById("filein").onchange = function() {
-    let reader = new FileReader();
+    reader = new FileReader();
     reader.readAsDataURL(document.getElementById("filein").files[0]);
     clear();
     reader.onload = function(e) {
-        midi = reader.result;
-        MIDIjs.play(midi);
-        MIDIjs.get_duration(midi, function(duration) {
+        MIDIjs.play(reader.result);
+        MIDIjs.get_duration(reader.result, function(duration) {
             document.getElementsByTagName("progress")[0].max = duration;
         });
         document.getElementsByTagName("progress")[0].value = 0;
