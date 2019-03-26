@@ -1,4 +1,4 @@
-var prog, dancing;
+var prog, dancing, midi;
 function flip() {
     this.isFlipped;
     if (this.isFlipped === false) {
@@ -14,8 +14,9 @@ function progress() {
         document.getElementsByTagName("progress")[0].value++;
         return;
     }
-    document.getElementsByTagName("progress")[0].value = 0;
+    MIDIjs.play(midi);
     document.getElementById("control").click();
+    document.getElementsByTagName("progress")[0].value = 0;
 }
 function clear() {
     clearInterval(prog);
@@ -31,8 +32,9 @@ document.getElementById("filein").onchange = function() {
     reader.readAsDataURL(document.getElementById("filein").files[0]);
     clear();
     reader.onload = function(e) {
-        MIDIjs.play(reader.result);
-        MIDIjs.get_duration(reader.result, function(duration) {
+        midi = reader.result;
+        MIDIjs.play(midi);
+        MIDIjs.get_duration(midi, function(duration) {
             document.getElementsByTagName("progress")[0].max = duration;
         });
         document.getElementsByTagName("progress")[0].value = 0;
