@@ -1,4 +1,48 @@
-var prog, dancing, reader;
+var prog, dancing, midi;
+MIDIjs.get_duration();
+
+function loadInitialFile(launchData) {
+    if (launchData && launchData.items && launchData.items[0]) {
+        let file = launchData.items[0].entry;
+        readAsDataURL(file, function(result) {
+            play(result, file.name);
+        });
+    }
+}
+
+function readAsDataURL(fileEntry, callback) {
+    fileEntry.file(function(file) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            callback(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function play(midi64, name) {
+    clear();
+    midi = midi64;
+    MIDIjs.play(midi);
+    document.getElementById("title").innerText = name.split(".mid")[0];
+    MIDIjs.get_duration(midi, function(duration) {
+        document.getElementsByTagName("progress")[0].max = duration;
+    });
+    document.getElementsByTagName("progress")[0].value = 0;
+    document.getElementById("control").disabled = false;
+    document.getElementById("control").click();
+}
+
+function progress() {
+    if (document.getElementsByTagName("progress")[0].value < document.getElementsByTagName("progress")[0].max) {
+        document.getElementsByTagName("progress")[0].value++;
+        return;
+    }
+    MIDIjs.play(midi);
+    document.getElementById("control").click();
+    document.getElementsByTagName("progress")[0].value = 0;
+}
+
 function flip() {
     this.isFlipped;
     if (this.isFlipped === false) {
@@ -9,15 +53,7 @@ function flip() {
     document.getElementsByTagName("img")[0].style.removeProperty("transform");
     this.isFlipped = false;
 }
-function progress() {
-    if (document.getElementsByTagName("progress")[0].value < document.getElementsByTagName("progress")[0].max) {
-        document.getElementsByTagName("progress")[0].value++;
-        return;
-    }
-    MIDIjs.play(reader.result);
-    document.getElementById("control").click();
-    document.getElementsByTagName("progress")[0].value = 0;
-}
+
 function clear() {
     clearInterval(prog);
     clearInterval(dancing);
@@ -30,17 +66,9 @@ document.getElementById("load").onclick = function() {
 document.getElementById("filein").onchange = function() {
     reader = new FileReader();
     reader.readAsDataURL(document.getElementById("filein").files[0]);
-    clear();
     reader.onload = function(e) {
-        MIDIjs.play(reader.result);
-        MIDIjs.get_duration(reader.result, function(duration) {
-            document.getElementsByTagName("progress")[0].max = duration;
-        });
-        document.getElementsByTagName("progress")[0].value = 0;
-        document.getElementById("control").click();
+        play(reader.result, document.getElementById("filein").files[0].name);
     };
-    document.getElementById("title").innerText = document.getElementById("filein").files[0].name.split(".mid")[0];
-    document.getElementById("control").disabled = false;
 };
 document.getElementById("control").onclick = function() {
     if (!dancing) {
@@ -54,4 +82,6 @@ document.getElementById("control").onclick = function() {
     document.getElementById("control").innerHTML = "&#9654;";
     clear();
 };
-window.addEventListener("load", MIDIjs.get_duration());
+window.onload = function() {
+    loadInitialFile(launchData);
+};
