@@ -1,22 +1,4 @@
-var prog, dancing, midi;
-
-function loadInitialFile(launchData) {
-    if (launchData && launchData.items && launchData.items[0]) {
-        readAsDataURL(launchData.items[0].entry, function(result) {
-            play(result, launchData.items[0].entry.name);
-        });
-    }
-}
-
-function readAsDataURL(fileEntry, callback) {
-    fileEntry.file(function(file) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            callback(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    });
-}
+let prog, dancing, midi;
 
 function play(b64, name) {
     clear();
@@ -31,6 +13,24 @@ function play(b64, name) {
     document.getElementById("control").click();
 }
 
+function readAsDataURL(fileEntry, callback) {
+    fileEntry.file(function(file) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            callback(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function loadInitialFile(launchData) {
+    if (launchData && launchData.items && launchData.items[0]) {
+        readAsDataURL(launchData.items[0].entry, function(result) {
+            play(result, launchData.items[0].entry.name);
+        });
+    }
+}
+
 function progress() {
     if (document.getElementsByTagName("progress")[0].value < document.getElementsByTagName("progress")[0].max) {
         document.getElementsByTagName("progress")[0].value++;
@@ -42,13 +42,12 @@ function progress() {
 }
 
 function flip() {
-    this.isFlipped;
     if (this.isFlipped === false) {
         document.getElementsByTagName("img")[0].style.transform = "scaleX(-1)";
         this.isFlipped = true;
         return;
     }
-    document.getElementsByTagName("img")[0].style.removeProperty("transform");
+    document.getElementsByTagName("img")[0].style.transform = "scaleX(1)";
     this.isFlipped = false;
 }
 
@@ -57,18 +56,22 @@ function clear() {
     clearInterval(dancing);
     dancing = prog = null;
 }
+
 MIDIjs.get_duration();
+
 document.getElementById("load").onclick = function() {
     document.getElementById("filein").value = null;
     document.getElementById("filein").click();
 };
+
 document.getElementById("filein").onchange = function() {
-    reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(document.getElementById("filein").files[0]);
     reader.onload = function(e) {
         play(reader.result, document.getElementById("filein").files[0].name);
     };
 };
+
 document.getElementById("control").onclick = function() {
     if (!dancing) {
         MIDIjs.resume();
@@ -81,6 +84,7 @@ document.getElementById("control").onclick = function() {
     document.getElementById("control").innerHTML = "&#9654;";
     clear();
 };
+
 window.onload = function() {
     loadInitialFile(launchData);
 };
