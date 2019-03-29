@@ -1,11 +1,9 @@
 var prog, dancing, midi;
-MIDIjs.get_duration();
 
 function loadInitialFile(launchData) {
     if (launchData && launchData.items && launchData.items[0]) {
-        let file = launchData.items[0].entry;
-        readAsDataURL(file, function(result) {
-            play(result, file.name);
+        readAsDataURL(launchData.items[0].entry, function(result) {
+            play(result, launchData.items[0].entry.name);
         });
     }
 }
@@ -20,14 +18,14 @@ function readAsDataURL(fileEntry, callback) {
     });
 }
 
-function play(midi64, name) {
+function play(b64, name) {
     clear();
-    midi = midi64;
+    midi = b64;
     MIDIjs.play(midi);
-    document.getElementById("title").innerText = name.split(".mid")[0];
     MIDIjs.get_duration(midi, function(duration) {
         document.getElementsByTagName("progress")[0].max = duration;
     });
+    document.getElementById("title").innerText = name.split(".mid")[0];
     document.getElementsByTagName("progress")[0].value = 0;
     document.getElementById("control").disabled = false;
     document.getElementById("control").click();
@@ -59,6 +57,7 @@ function clear() {
     clearInterval(dancing);
     dancing = prog = null;
 }
+MIDIjs.get_duration();
 document.getElementById("load").onclick = function() {
     document.getElementById("filein").value = null;
     document.getElementById("filein").click();
