@@ -57,8 +57,6 @@ function clear() {
     dancing = prog = null;
 }
 
-MIDIjs.get_duration();
-
 document.getElementById("load").onclick = function() {
     document.getElementById("filein").value = null;
     document.getElementById("filein").click();
