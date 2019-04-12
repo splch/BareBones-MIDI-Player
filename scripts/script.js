@@ -83,6 +83,4 @@ document.getElementById("control").onclick = function() {
     clear();
 };
 
-window.onload = function() {
-    loadInitialFile(launchData);
-};
+loadInitialFile(launchData);
