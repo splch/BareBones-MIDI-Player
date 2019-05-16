@@ -10,6 +10,7 @@ function play(b64, name) {
     document.getElementById("title").innerText = name.split(".mid")[0];
     document.getElementsByTagName("progress")[0].value = 0;
     document.getElementById("control").disabled = false;
+    document.getElementById("loop").disabled = false;
     document.getElementById("control").click();
 }
 
@@ -34,6 +35,11 @@ function loadInitialFile(launchData) {
 function progress() {
     if (document.getElementsByTagName("progress")[0].value < document.getElementsByTagName("progress")[0].max) {
         document.getElementsByTagName("progress")[0].value++;
+        return;
+    }
+    else if (document.getElementById("loop").checked === true) {
+        MIDIjs.play(midi);
+        document.getElementsByTagName("progress")[0].value = 0;
         return;
     }
     MIDIjs.play(midi);
