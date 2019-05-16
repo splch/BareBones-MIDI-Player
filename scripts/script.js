@@ -37,7 +37,7 @@ function progress() {
         document.getElementsByTagName("progress")[0].value++;
         return;
     }
-    else if (document.getElementById("loop").checked === true) {
+    else if (document.getElementById("loop").looped === true) {
         MIDIjs.play(midi);
         document.getElementsByTagName("progress")[0].value = 0;
         return;
@@ -48,13 +48,13 @@ function progress() {
 }
 
 function flip() {
-    if (this.isFlipped === false) {
+    if (this.isFlipped) {
         document.getElementsByTagName("img")[0].style.transform = "scaleX(-1)";
-        this.isFlipped = true;
+        this.isFlipped = false;
         return;
     }
     document.getElementsByTagName("img")[0].style.transform = "scaleX(1)";
-    this.isFlipped = false;
+    this.isFlipped = true;
 }
 
 function clear() {
@@ -79,14 +79,25 @@ document.getElementById("filein").onchange = function() {
 document.getElementById("control").onclick = function() {
     if (!dancing) {
         MIDIjs.resume();
-        document.getElementById("control").innerHTML = "&#10073;&#10073;";
+        this.innerHTML = "&#10073;&#10073;";
         prog = setInterval(progress, 1000);
         dancing = setInterval(flip, 700);
         return;
     }
     MIDIjs.pause();
-    document.getElementById("control").innerHTML = "&#9654;";
+    this.innerHTML = "&#9654;";
     clear();
 };
 
+document.getElementById("loop").onclick = function() {
+    if (this.looped) {
+        this.style.color = "black";
+        this.looped = false;
+        return;
+    }
+    this.style.color = "lightgray";
+    this.looped = true;
+}
+
 loadInitialFile(launchData);
+document.getElementById("loop").looped = false;
