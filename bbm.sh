@@ -1,4 +1,4 @@
-zip -r -9 --exclude=*.git* --exclude=*.DS_Store* --exclude=*.sh* ../BareBones-MIDI-Player.zip *
+zip -r -9 --exclude=*.git* --exclude=*.DS_Store* --exclude=*.vscode* --exclude=*.sh* ../BareBones-MIDI-Player.zip *
 echo "Input specific change:"
 read change
 git config --global user.email "spencer.churchill@outlook.com"
