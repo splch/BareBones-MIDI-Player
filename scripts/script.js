@@ -9,7 +9,6 @@ function play(b64, name) {
     });
     document.getElementById("title").innerText = name.split(".mid")[0];
     document.getElementsByTagName("progress")[0].value = 0;
-    document.getElementsByTagName("fieldset")[0].disabled = false;
     document.getElementById("control").click();
 }
 
@@ -76,7 +75,10 @@ document.getElementById("filein").onchange = function() {
 };
 
 document.getElementById("control").onclick = function() {
-    if (!dancing) {
+    if (!midi) {
+        return;
+    }
+    else if (!dancing) {
         MIDIjs.resume();
         this.innerHTML = "&#10073;&#10073;";
         prog = setInterval(progress, 1000);
@@ -92,11 +94,15 @@ document.getElementById("loop").onclick = function() {
     if (this.looped) {
         this.style.color = "black";
         this.looped = false;
+        this.title = "loop: off"
         return;
     }
     this.style.color = "lightgray";
     this.looped = true;
-}
+    this.title = "loop: on"
+};
 
-loadInitialFile(launchData);
-document.getElementById("loop").click();
+onload = function () {
+    loadInitialFile(launchData);
+    document.getElementById("loop").looped = false;
+};

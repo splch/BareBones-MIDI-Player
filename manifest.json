@@ -2,7 +2,7 @@
     "name": "BareBones MIDI Player",
     "short_name": "BareBones MIDI",
     "description": "It plays MIDIs.",
-    "version": "0.35",
+    "version": "0.36",
     "manifest_version": 2,
     "app": {
         "background": {

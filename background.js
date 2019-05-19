@@ -1,11 +1,11 @@
 chrome.app.runtime.onLaunched.addListener(function(launchData) {
     chrome.app.window.create('index.html', {
         'outerBounds': {
-            'width': 180,
-            'height': 200
+            'width': 168,
+            'height': 207
         },
-        "resizable": true,
+        "resizable": false,
     }, function(win) {
         win.contentWindow.launchData = launchData;
     });
-});
+})
