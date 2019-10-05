@@ -1,14 +1,13 @@
-let prog, dancing, midi;
+let bb = {prog: null, dancing: null, looped: false, midi: null, dur: 0, val: 0};
 
 function play(b64, name) {
     clear();
-    midi = b64;
-    MIDIjs.play(midi);
-    MIDIjs.get_duration(midi, function(duration) {
-        document.getElementsByTagName("progress")[0].max = duration;
+    bb.midi = b64;
+    MIDIjs.play(bb.midi);
+    MIDIjs.get_duration(bb.midi, function(duration) {
+        bb.dur = duration;
     });
     document.getElementById("title").innerText = name.split(".mid")[0];
-    document.getElementsByTagName("progress")[0].value = 0;
     document.getElementById("control").click();
 }
 
@@ -31,21 +30,20 @@ function loadInitialFile(launchData) {
 }
 
 function progress() {
-    bar = document.getElementsByTagName("progress")[0];
-    if (bar.value < bar.max) {
-        bar.value++;
-        bar.title = String(Math.floor(bar.value/60))+':'+String(Math.ceil(bar.value%60)).padStart(2, '0') + " / " + String(Math.floor(bar.max/60))+':'+String(Math.ceil(bar.max%60)).padStart(2, '0');
-        return;
+    bar = document.getElementById("bar");
+    if (bb.val > bb.dur) {
+        bb.val = 0;
+        bar.innerText = '';
+        bar.style.width = "0%";
+        MIDIjs.play(bb.midi);
+        if (bb.looped) return;
+        document.getElementById("control").click();
     }
-    if (document.getElementById("loop").looped === true) {
-        MIDIjs.play(midi);
-        bar.value = 0;
-        return;
+    else {
+        bar.style.width = String(100*bb.val/bb.dur)+'%';
+        bar.innerText = String(Math.floor(bb.val/60))+':'+String(Math.ceil(bb.val%60)).padStart(2, '0') + " / " + String(Math.floor(bb.dur/60))+':'+String(Math.ceil(bb.dur%60)).padStart(2, '0');
+        bb.val += 1;
     }
-    MIDIjs.play(midi);
-    document.getElementById("control").click();
-    bar.value = 0;
-    bar.removeAttribute("title");
 }
 
 function flip() {
@@ -59,9 +57,9 @@ function flip() {
 }
 
 function clear() {
-    clearInterval(prog);
-    clearInterval(dancing);
-    dancing = prog = null;
+    clearInterval(bb.prog);
+    clearInterval(bb.dancing);
+    bb.dancing = bb.prog = null;
 }
 
 document.getElementById("load").onclick = function() {
@@ -78,14 +76,12 @@ document.getElementById("filein").onchange = function() {
 };
 
 document.getElementById("control").onclick = function() {
-    if (!midi) {
-        return;
-    }
-    if (!dancing) {
+    if (!bb.midi) return;
+    if (!bb.dancing) {
         MIDIjs.resume();
         this.innerHTML = "&#10073;&#10073;";
-        prog = setInterval(progress, 1000);
-        dancing = setInterval(flip, 700);
+        bb.prog = setInterval(progress, 1000);
+        bb.dancing = setInterval(flip, 700);
         return;
     }
     MIDIjs.pause();
@@ -94,18 +90,17 @@ document.getElementById("control").onclick = function() {
 };
 
 document.getElementById("loop").onclick = function() {
-    if (this.looped) {
-        this.style.color = "black";
-        this.looped = false;
+    if (bb.looped) {
+        this.style.color = "rgba(0, 0, 0, 1)";
+        bb.looped = false;
         this.title = "loop: off";
         return;
     }
-    this.style.color = "lightgray";
-    this.looped = true;
+    this.style.color = "rgba(0, 0, 0, 0.2)";
+    bb.looped = true;
     this.title = "loop: on";
 };
 
 onload = function () {
     loadInitialFile(launchData);
-    document.getElementById("loop").looped = false;
 };
