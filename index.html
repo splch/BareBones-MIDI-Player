@@ -4,16 +4,18 @@
         <script src="scripts/midi.js"></script>
         <script src="scripts/script.js" defer></script>
     </head>
-    <body style="margin-top: 0px;">
-        <h2 style="margin: 0px auto 4px auto; font-size: 20px;">BareBones MIDI</h2>
+    <body style="margin: 0px 5px;">
+        <h2 style="margin: 0px 0px 5px 0px; font-size: 20px;">BareBones MIDI</h2>
         <button id="load">Choose Tune</button>
         <input id="filein" type="file" accept=".mid, .midi" style="display: none;">
         <div id="title" style="margin: 3px; font-size: 10px; font-style: italic; white-space: nowrap;"></div>
-        <div style="position: absolute; bottom: 0px;">
-            <button id="control">&#9654;</button>
-            <progress></progress>
-            <small id="loop" style="font-size: 12px; margin-left: 8px;" title="loop: off">&#8734;</small>
-            <img src="icons/bbm.png" alt="Skeletons" style="width: 118px; display: block; margin: 2px auto;">
+        <div style="position: absolute; width: 160px; bottom: 0px;">
+            <button id="control" style="font-size: 8px;">&#9654;</button>
+            <small id="loop" style="font-size: 10px;" title="loop: off">&#8734;</small>
+            <div style="position: absolute; height: 12px; width: 120px; left: 40px; top: 3px; background-color: rgba(0, 0, 0, 0.1);">
+                <div id="bar" style="height: 12px; width: 0%; background-color: rgba(0, 0, 0, 0.2); font-size: 10px; white-space: nowrap;"></div>
+            </div>
+            <img src="icons/bbm.png" alt="Skeletons" style="width: 118px; display: block; margin: 5px auto;">
         </div>
     </body>
 </html>
