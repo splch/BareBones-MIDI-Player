@@ -1,4 +1,4 @@
-let bb = {prog: null, dancing: null, looped: false, midi: null, dur: 0, val: 0};
+let bb = {prog: null, dancing: null, looped: false, midi: null, dur: 0, val: null};
 
 function play(b64, name) {
     clear();
@@ -8,6 +8,7 @@ function play(b64, name) {
         bb.dur = duration;
     });
     document.getElementById("title").innerText = name.split(".mid")[0];
+    bb.val = 0;
     document.getElementById("control").click();
 }
 
