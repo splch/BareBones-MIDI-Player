@@ -36,8 +36,7 @@ function progress() {
         bar.innerText = '';
         bar.style.width = "0%";
         MIDIjs.play(bb.midi);
-        if (bb.looped) return;
-        document.getElementById("control").click();
+        if (!bb.looped) document.getElementById("control").click();
     }
     else {
         bar.style.width = String(100*bb.val/bb.dur)+'%';
@@ -47,13 +46,13 @@ function progress() {
 }
 
 function flip() {
+    this.isFlipped = !this.isFlipped;
     if (this.isFlipped) {
         document.getElementsByTagName("img")[0].style.transform = "scaleX(-1)";
-        this.isFlipped = false;
-        return;
     }
-    document.getElementsByTagName("img")[0].style.transform = "scaleX(1)";
-    this.isFlipped = true;
+    else {
+        document.getElementsByTagName("img")[0].style.transform = "scaleX(1)";
+    }
 }
 
 function clear() {
@@ -76,29 +75,31 @@ document.getElementById("filein").onchange = function() {
 };
 
 document.getElementById("control").onclick = function() {
-    if (!bb.midi) return;
-    if (!bb.dancing) {
-        MIDIjs.resume();
-        this.innerHTML = "&#10073;&#10073;";
-        bb.prog = setInterval(progress, 1000);
-        bb.dancing = setInterval(flip, 700);
-        return;
+    if (bb.midi) {
+        if (!bb.dancing) {
+            MIDIjs.resume();
+            this.innerHTML = "&#10073;&#10073;";
+            bb.prog = setInterval(progress, 1000);
+            bb.dancing = setInterval(flip, 700);
+        }
+        else {
+            MIDIjs.pause();
+            this.innerHTML = "&#9654;";
+            clear();
+        }
     }
-    MIDIjs.pause();
-    this.innerHTML = "&#9654;";
-    clear();
 };
 
 document.getElementById("loop").onclick = function() {
     if (bb.looped) {
         this.style.color = "rgba(0, 0, 0, 1)";
-        bb.looped = false;
         this.title = "loop: off";
-        return;
     }
-    this.style.color = "rgba(0, 0, 0, 0.2)";
-    bb.looped = true;
-    this.title = "loop: on";
+    else {
+        this.style.color = "rgba(0, 0, 0, 0.2)";
+        this.title = "loop: on";
+    }
+    bb.looped = !bb.looped;
 };
 
 onload = function () {
