@@ -1,5 +1,3 @@
-let bb = {prog: null, dancing: null, looped: false, midi: null, dur: 0, val: null};
-
 function play(b64, name) {
     clear();
     bb.midi = b64;
@@ -54,6 +52,10 @@ function clear() {
     bb.dancing = bb.prog = null;
 }
 
+window.onresize = function() {
+    window.resizeTo(165, 185);
+};
+
 document.getElementById("load").onclick = function() {
     document.getElementById("filein").value = null;
     document.getElementById("filein").click();
@@ -95,6 +97,5 @@ document.getElementById("loop").onclick = function() {
     bb.looped = !bb.looped;
 };
 
-window.onresize = function() {
-    window.resizeTo(165, 185);
-};
+let bb = {prog: null, dancing: null, looped: false, midi: null, dur: 0, val: null};
+window.resizeTo(165, 185);
