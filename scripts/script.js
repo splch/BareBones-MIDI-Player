@@ -94,3 +94,7 @@ document.getElementById("loop").onclick = function() {
     }
     bb.looped = !bb.looped;
 };
+
+window.onresize = function() {
+    window.resizeTo(165, 185);
+};
