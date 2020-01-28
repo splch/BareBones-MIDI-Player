@@ -1,11 +1,8 @@
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
-    chrome.app.window.create('index.html', {
-        'outerBounds': {
-            'width': 170,
-            'height': 200
-        },
-        "resizable": false,
-    }, function(win) {
-        win.contentWindow.launchData = launchData;
+chrome.browserAction.onClicked.addListener(function(tab) {
+    chrome.windows.create({
+        url: chrome.runtime.getURL("index.html"),
+        height: 185,
+        width: 165,
+        type: "popup"
     });
-})
+});

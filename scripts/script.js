@@ -22,14 +22,6 @@ function readAsDataURL(fileEntry, callback) {
     });
 }
 
-function loadInitialFile(launchData) {
-    if (launchData && launchData.items && launchData.items[0]) {
-        readAsDataURL(launchData.items[0].entry, function(result) {
-            play(result, launchData.items[0].entry.name);
-        });
-    }
-}
-
 function progress() {
     bar = document.getElementById("bar");
     if (bb.val > bb.dur) {
@@ -101,8 +93,4 @@ document.getElementById("loop").onclick = function() {
         this.title = "loop: on";
     }
     bb.looped = !bb.looped;
-};
-
-onload = function () {
-    loadInitialFile(launchData);
 };
