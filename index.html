@@ -1,23 +1,26 @@
 <html>
-    <head>
-        <title>BBM</title>
-        <script src="scripts/midi.js"></script>
-        <script src="scripts/script.js" defer></script>
-    </head>
-    <body style="margin: 0px 5px; user-select: none; cursor: default;">
-        <div style="height: 50%;">
-            <h2 style="margin: 0px 0px 10px 0px; font-size: 20px;">BareBones MIDI</h2>
-            <button id="load">Choose Tune</button>
-            <input id="filein" type="file" accept=".mid, .midi" hidden>
-            <div id="title" style="margin: 3px; font-size: 10px; font-style: italic; white-space: nowrap;"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between;">
-            <button id="control" style="font-size: 8px;">&#9654;</button>
-            <small id="loop" style="font-size: 10px;" title="loop: off">&#8734;</small>
-            <div style="height: 12px; width: 120px; background-color: rgba(0, 0, 0, 0.075);">
-                <div id="bar" style="height: 12px; width: 0%; background-color: rgba(0, 0, 0, 0.15); font-size: 10px; white-space: nowrap;"></div>
-            </div>
-        </div>
-        <img src="icons/bbm.png" alt="Skeletons" style="width: 118px; display: block; margin: 6px auto;" draggable="false">
-    </body>
+
+<head>
+  <title>BBM</title>
+  <script src="scripts/midi.js"></script>
+  <script src="scripts/script.js" defer></script>
+</head>
+
+<body style="margin: 0 5px; user-select: none; cursor: default;">
+  <div style="height: 80px;">
+    <h2 style="margin: 0 0 10px 0; font-size: 20px;">BareBones MIDI</h2>
+    <button id="load">Choose Tune</button>
+    <input id="filein" type="file" accept=".mid, .midi" hidden>
+    <div id="title" style="margin: 3px; font-size: 10px; font-style: italic; white-space: nowrap;"></div>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <button id="control" style="font-size: 8px;">&#9654;</button>
+    <small id="loop" style="font-size: 10px;" title="loop: off">&#8734;</small>
+    <div style="height: 12px; width: 120px; background-color: rgba(0, 0, 0, 0.075);">
+      <div id="bar" style="height: 12px; width: 0; background-color: rgba(0, 0, 0, 0.15); font-size: 10px; white-space: nowrap;"></div>
+    </div>
+  </div>
+  <img src="icons/bbm.png" alt="Skeletons" style="width: 118px; display: block; margin: 6px auto;" draggable="false">
+</body>
+
 </html>
