@@ -1,21 +1,21 @@
 {
-    "manifest_version": 2,
-    "name": "BareBones MIDI Player",
-    "version": "0.46",
+  "manifest_version": 2,
+  "name": "BareBones MIDI Player",
+  "version": "0.47",
 
-    "description": "It plays MIDIs.",
-    "icons": {
-        "128": "icons/icon.png"
-    },
+  "description": "It plays MIDIs.",
+  "icons": {
+    "128": "icons/icon.png"
+  },
 
-    "browser_action": {
-        "default_title": "BareBones MIDI"
-    },
+  "browser_action": {
+    "default_title": "BareBones MIDI"
+  },
 
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
-    },
-    "offline_enabled": true,
-    "short_name": "BareBones MIDI"
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "offline_enabled": true,
+  "short_name": "BareBones MIDI"
 }
